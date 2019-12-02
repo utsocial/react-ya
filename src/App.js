@@ -3,8 +3,14 @@ import './App.css';
 
 class App extends Component {
   constructor(props) {
-    super(props)
+      // https://overreacted.io/es/why-do-we-write-super-props/
+      // 🔴 Aún no se puede usar `this`
+      super(props);
+      // ✅ Sin embargo ahora no hay problemas
     this.presion = this.presion.bind(this);
+    console.log(props);      // ✅ {}
+    console.log(this.props); // ✅ {}
+    // 
   }
 
   render() {
