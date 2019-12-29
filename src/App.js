@@ -1,29 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          Testing changes Ivan R. Chenoweth 12/01/2019.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+      // https://overreacted.io/es/why-do-we-write-super-props/
+      // 🔴 Aún no se puede usar `this`
+      super(props);
+      // ✅ Sin embargo ahora no hay problemas
+    this.presion = this.presion.bind(this);
+    console.log(props);      // ✅ {}
+    console.log(this.props); // ✅ {}
+    // 
+  }
+
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.presion}>
+          <p>Ingrese primer valor:
+            <input type="number" name="valor1" />
+          </p>
+          <p>Ingrese segundo valor:
+            <input type="number" name="valor2" />
+          </p>        
+          <p>
+            <input type="submit" value="Sumar" />
+          </p>
+        </form>
+      </div>
+    );
+  }
+
+  presion(e) {
+    e.preventDefault();
+    const v1=parseInt(e.target.valor1.value, 10);
+    const v2=parseInt(e.target.valor2.value, 10);
+    const suma=v1+v2;
+    alert('La suma es:'+suma);
+  }
 }
 
 export default App;
