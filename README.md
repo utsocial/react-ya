@@ -1,5 +1,7 @@
 [Live demo hosted on Heroku](https://react-ya-app.herokuapp.com).
 
+[This project is based in learn react from tutorialesprogramacionya.com/reactya](https://www.tutorialesprogramacionya.com/reactya/index.php?inicio=0)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
