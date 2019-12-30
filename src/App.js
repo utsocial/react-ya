@@ -4,31 +4,59 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props)
-    this.generarAleatorios = this.generarAleatorios.bind(this);
     this.state = {
-      numeros: []
+      articulos: [{
+                      codigo: 1, 
+                      descripcion: 'papas',
+                      precio: 12.52
+                 },{
+                      codigo: 2, 
+                      descripcion: 'naranjas',
+                      precio: 21
+                 },{
+                      codigo: 3, 
+                      descripcion: 'peras',
+                      precio: 18.20
+                 }]
     }
+    this.eliminarUltimaFila = this.eliminarUltimaFila.bind(this);
   }
   render() {
     return (
       <div>
-        <p>Números aleatorios:</p>
-        {this.state.numeros.map(function(num) 
-          { return (<p>{num}</p>); 
-          }
-        )}
-        <button onClick={this.generarAleatorios}>Generar números aleatorios</button>
+        <table border="1">
+        <thead><tr><th>Código</th><th>Descripción</th><th>Precio</th></tr></thead>
+        <tbody>
+        {this.state.articulos.map(elemento => {
+          return (
+            <tr key={elemento.codigo}>
+              <td>
+                {elemento.codigo}  
+              </td>
+              <td>
+                {elemento.descripcion}
+              </td>
+              <td>
+                {elemento.precio}
+              </td>              
+            </tr>
+          )
+        })}    
+        </tbody>    
+        </table>
+        <button onClick={this.eliminarUltimaFila}>Eliminar última fila</button>
       </div>
     );
   }
-   
-  generarAleatorios() {
-    const vec=new Array(5)
-    for(let x=0; x<vec.length; x++)
-      vec[x]=Math.trunc(Math.random()*10);
-    this.setState( {
-      numeros: vec
-    })
+
+  eliminarUltimaFila() {
+    if (this.state.articulos.length > 0) {
+      var temp = this.state.articulos;
+      temp.pop();
+      this.setState({
+        articulos: temp
+      })
+    }  
   }
 }
 
