@@ -3,40 +3,26 @@ import './App.css';
 
 class App extends Component {
   constructor(props) {
-      // https://overreacted.io/es/why-do-we-write-super-props/
-      // 🔴 Aún no se puede usar `this`
-      super(props);
-      // ✅ Sin embargo ahora no hay problemas
-    this.presion = this.presion.bind(this);
-    console.log(props);      // ✅ {}
-    console.log(this.props); // ✅ {}
-    // 
+    super(props)
+    this.generarAleatorio = this.generarAleatorio.bind(this);
+    this.state = {
+      numero: 'No se ha generado número aleatorio aún'
+    }
   }
-
   render() {
     return (
       <div>
-        <form onSubmit={this.presion}>
-          <p>Ingrese primer valor:
-            <input type="number" name="valor1" />
-          </p>
-          <p>Ingrese segundo valor:
-            <input type="number" name="valor2" />
-          </p>        
-          <p>
-            <input type="submit" value="Sumar" />
-          </p>
-        </form>
+        <p>Número aleatorio: {this.state.numero}</p>
+        <button onClick={this.generarAleatorio}>Generar número aleatorio</button>
       </div>
     );
   }
-
-  presion(e) {
-    e.preventDefault();
-    const v1=parseInt(e.target.valor1.value, 10);
-    const v2=parseInt(e.target.valor2.value, 10);
-    const suma=v1+v2;
-    alert('La suma es:'+suma);
+   
+  generarAleatorio() {
+    const v=Math.trunc(Math.random()*10);
+    this.setState( {
+      numero: v
+    })
   }
 }
 
