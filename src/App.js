@@ -3,41 +3,60 @@ import './App.css';
 
 class App extends Component {
   constructor(props) {
-      // https://overreacted.io/es/why-do-we-write-super-props/
-      // 🔴 Aún no se puede usar `this`
-      super(props);
-      // ✅ Sin embargo ahora no hay problemas
-    this.presion = this.presion.bind(this);
-    console.log(props);      // ✅ {}
-    console.log(this.props); // ✅ {}
-    // 
+    super(props)
+    this.state = {
+      articulos: [{
+                      codigo: 1, 
+                      descripcion: 'papas',
+                      precio: 12.52
+                 },{
+                      codigo: 2, 
+                      descripcion: 'naranjas',
+                      precio: 21
+                 },{
+                      codigo: 3, 
+                      descripcion: 'peras',
+                      precio: 18.20
+                 }]
+    }
+    this.borrar = this.borrar.bind(this);
   }
-
   render() {
     return (
       <div>
-        <form onSubmit={this.presion}>
-          <p>Ingrese primer valor:
-            <input type="number" name="valor1" />
-          </p>
-          <p>Ingrese segundo valor:
-            <input type="number" name="valor2" />
-          </p>        
-          <p>
-            <input type="submit" value="Sumar" />
-          </p>
-        </form>
+        <table border="1">
+        <thead><tr><th>Código</th><th>Descripción</th><th>Precio</th><th>Borra?</th></tr></thead>
+        <tbody>
+        {this.state.articulos.map(elemento => {
+          return (
+            <tr key={elemento.codigo}>
+              <td>
+                {elemento.codigo}  
+              </td>
+              <td>
+                {elemento.descripcion}
+              </td>
+              <td>
+                {elemento.precio}
+              </td>              
+              <td>
+                <button onClick={()=>this.borrar(elemento.codigo)}>Borrar</button>
+              </td>
+            </tr>
+          )
+        })}    
+        </tbody>    
+        </table>
       </div>
     );
   }
 
-  presion(e) {
-    e.preventDefault();
-    const v1=parseInt(e.target.valor1.value, 10);
-    const v2=parseInt(e.target.valor2.value, 10);
-    const suma=v1+v2;
-    alert('La suma es:'+suma);
-  }
+  borrar(cod) {
+      var temp = this.state.articulos.filter((el)=>el.codigo !== cod);
+      this.setState({
+        articulos: temp
+      })
+  }  
 }
 
 export default App;
