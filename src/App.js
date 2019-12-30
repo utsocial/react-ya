@@ -1,45 +1,45 @@
 import React, { Component } from 'react';
 import './App.css';
-import Dado from './Dado'
+import ListadoResultados from './ListadoResultados'
 
 class App extends Component {
-
   constructor(props) {
     super(props);
+    this.sumar=this.sumar.bind(this);
     this.state = {
-      valor1: this.generarValor(),
-      valor2: this.generarValor(),
-      valor3: this.generarValor()
+      resultados: []
     }
-    this.tirar=this.tirar.bind(this); // enlazamos el método a ejecutar cuando se presione el botón:
   }
 
   render() {
-    const valor1 = Math.trunc(Math.random()*6)+1;
-    const valor2 = Math.trunc(Math.random()*6)+1;
-    const valor3 = Math.trunc(Math.random()*6)+1;
     return (
       <div>
-        <Dado valor={valor1} />
-        <Dado valor={valor2} />
-        <Dado valor={valor3} />       
-        <button onClick={this.tirar}>Tirar</button>         
-      </div>      
+        <form onSubmit={this.sumar}>
+          <p>Ingrese primer valor:<input type="text" name="valor1" /></p>
+          <p>Ingrese segundo valor:<input type="text" name="valor2" /></p>
+          <input type="submit" value="Sumar" />
+        </form>     
+        <ListadoResultados resultados={this.state.resultados} />
+      </div>
     );
   }
 
-  tirar() {
-    this.setState({
-      valor1: this.generarValor(),
-      valor2: this.generarValor(),
-      valor3: this.generarValor()      
+sumar(event) {
+  event.preventDefault();
+  const v1=parseInt(event.target.valor1.value,10);
+  const v2=parseInt(event.target.valor2.value,10);
+  const suma=v1+v2;
+  const nuevo = {
+    resultado: suma,
+    valor1: v1,
+    valor2: v2
+  }
+  const vec = this.state.resultados;
+  vec.unshift(nuevo);
+  this.setState({
+    resultados: vec
     });
   }
-
-  generarValor() {
-    return Math.trunc(Math.random()*6)+1;
-  }
-
 }
 
 export default App;
