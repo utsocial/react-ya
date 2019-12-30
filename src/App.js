@@ -4,24 +4,30 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props)
-    this.generarAleatorio = this.generarAleatorio.bind(this);
+    this.generarAleatorios = this.generarAleatorios.bind(this);
     this.state = {
-      numero: 'No se ha generado número aleatorio aún'
+      numeros: []
     }
   }
   render() {
     return (
       <div>
-        <p>Número aleatorio: {this.state.numero}</p>
-        <button onClick={this.generarAleatorio}>Generar número aleatorio</button>
+        <p>Números aleatorios:</p>
+        {this.state.numeros.map(function(num) 
+          { return (<p>{num}</p>); 
+          }
+        )}
+        <button onClick={this.generarAleatorios}>Generar números aleatorios</button>
       </div>
     );
   }
    
-  generarAleatorio() {
-    const v=Math.trunc(Math.random()*10);
+  generarAleatorios() {
+    const vec=new Array(5)
+    for(let x=0; x<vec.length; x++)
+      vec[x]=Math.trunc(Math.random()*10);
     this.setState( {
-      numero: v
+      numeros: vec
     })
   }
 }
