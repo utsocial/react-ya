@@ -1,36 +1,53 @@
 import React, { Component } from "react";
 import "./App.css";
 
-//http://www.tutorialesprogramacionya.com/reactya/detalleconcepto.php?punto=14&codigo=14&inicio=0
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      texto: ""
+      estudios: "secundario"
     };
-    // Enlazamos los métodos que se ejecutarán cuando haya cambios en los controles de formulario:
-    this.cambioTexto = this.cambioTexto.bind(this);
+    this.cambioEstudios = this.cambioEstudios.bind(this);
   }
+
   render() {
     return (
       <div>
         <p>
-          <textarea
-            value={this.state.texto}
-            onChange={this.cambioTexto}
-            cols="100"
-            rows="5"
-          ></textarea>
+          <input
+            type="radio"
+            value="primario"
+            checked={this.state.estudios === "primario"}
+            onChange={this.cambioEstudios}
+          />
+          Primario
         </p>
-        <p>Cantidad de caracteres ingresados: {this.state.texto.length}</p>
+        <p>
+          <input
+            type="radio"
+            value="secundario"
+            checked={this.state.estudios === "secundario"}
+            onChange={this.cambioEstudios}
+          />
+          Secundario
+        </p>
+        <p>
+          <input
+            type="radio"
+            value="universitario"
+            checked={this.state.estudios === "universitario"}
+            onChange={this.cambioEstudios}
+          />
+          Universitario
+        </p>
+        <p>Estudio seleccionado: {this.state.estudios}</p>
       </div>
     );
   }
 
-  cambioTexto(e) {
+  cambioEstudios(e) {
     this.setState({
-      texto: e.target.value
+      estudios: e.target.value
     });
   }
 }
