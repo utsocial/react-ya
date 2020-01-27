@@ -1,26 +1,30 @@
 import React, { Component } from "react";
 import "./App.css";
 
-// http://www.tutorialesprogramacionya.com/reactya/detalleconcepto.php?punto=10&codigo=10&inicio=0
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      articulos: []
+      articulos: [
+        {
+          codigo: 1,
+          descripcion: "papas",
+          precio: 12.52
+        },
+        {
+          codigo: 2,
+          descripcion: "naranjas",
+          precio: 21
+        },
+        {
+          codigo: 3,
+          descripcion: "peras",
+          precio: 18.2
+        }
+      ]
     };
+    this.borrar = this.borrar.bind(this);
   }
-
-  componentWillMount() {
-    fetch("http://scratchya.com.ar/vue/datos.php")
-      .then(response => {
-        return response.json();
-      })
-      .then(art => {
-        this.setState({ articulos: art });
-      });
-  }
-
   render() {
     return (
       <div>
@@ -30,15 +34,21 @@ class App extends Component {
               <th>Código</th>
               <th>Descripción</th>
               <th>Precio</th>
+              <th>Borra?</th>
             </tr>
           </thead>
           <tbody>
-            {this.state.articulos.map(art => {
+            {this.state.articulos.map(elemento => {
               return (
-                <tr key={art.codigo}>
-                  <td>{art.codigo}</td>
-                  <td>{art.descripcion}</td>
-                  <td>{art.precio}</td>
+                <tr key={elemento.codigo}>
+                  <td>{elemento.codigo}</td>
+                  <td>{elemento.descripcion}</td>
+                  <td>{elemento.precio}</td>
+                  <td>
+                    <button onClick={() => this.borrar(elemento.codigo)}>
+                      Borrar
+                    </button>
+                  </td>
                 </tr>
               );
             })}
@@ -46,6 +56,13 @@ class App extends Component {
         </table>
       </div>
     );
+  }
+
+  borrar(cod) {
+    var temp = this.state.articulos.filter(el => el.codigo !== cod);
+    this.setState({
+      articulos: temp
+    });
   }
 }
 
