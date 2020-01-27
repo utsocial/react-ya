@@ -1,41 +1,17 @@
 import React, { Component } from "react";
 import "./App.css";
-import ListadoResultados from "./ListadoResultados";
-import FormularioNumeros from "./FormularioNumeros";
+import Reloj from "./Reloj";
+//
+// http://www.tutorialesprogramacionya.com/reactya/detalleconcepto.php?punto=9&codigo=9&inicio=0
+// proyecto008
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.sumar = this.sumar.bind(this);
-    this.state = {
-      resultados: []
-    };
-  }
-
   render() {
     return (
       <div>
-        <FormularioNumeros onSumar={this.sumar} />
-        <ListadoResultados resultados={this.state.resultados} />
+        <Reloj />
       </div>
     );
-  }
-
-  sumar(event) {
-    event.preventDefault();
-    const v1 = parseInt(event.target.valor1.value, 10);
-    const v2 = parseInt(event.target.valor2.value, 10);
-    const suma = v1 + v2;
-    const nuevo = {
-      resultado: suma,
-      valor1: v1,
-      valor2: v2
-    };
-    const vec = this.state.resultados;
-    vec.unshift(nuevo);
-    this.setState({
-      resultados: vec
-    });
   }
 }
 
