@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-//
+////
 // componentWillMount() //se ejecuta antes que el DOM de la componente se haya montado
 // componentDidMount() //se ejecuta luego que el DOM de la componente se ha generado (ya se ha ejecutado el método render())
 // componentWillUnmount() //se ejecuta antes que el DOM de la componente se destruya
