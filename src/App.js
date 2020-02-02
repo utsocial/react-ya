@@ -2,53 +2,50 @@ import React, { Component } from "react";
 import "./App.css";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      estudios: "secundario"
-    };
-    this.cambioEstudios = this.cambioEstudios.bind(this);
-  }
+  state = null;
+
+  fetchData = () => {
+    // this.state = {}
+    console.log(this.state);
+    if (this.state == null) {
+      fetch("http://scratchya.com.ar/vue/datos.php")
+        .then(response => {
+          return response.json();
+        })
+        .then(art => {
+          this.setState({ articulos: art });
+        });
+    }
+  };
 
   render() {
+    this.fetchData();
     return (
       <div>
-        <p>
-          <input
-            type="radio"
-            value="primario"
-            checked={this.state.estudios === "primario"}
-            onChange={this.cambioEstudios}
-          />
-          Primario
-        </p>
-        <p>
-          <input
-            type="radio"
-            value="secundario"
-            checked={this.state.estudios === "secundario"}
-            onChange={this.cambioEstudios}
-          />
-          Secundario
-        </p>
-        <p>
-          <input
-            type="radio"
-            value="universitario"
-            checked={this.state.estudios === "universitario"}
-            onChange={this.cambioEstudios}
-          />
-          Universitario
-        </p>
-        <p>Estudio seleccionado: {this.state.estudios}</p>
+        <button onClick={this.fetchData}>llamar ajax</button>
+        <table border="1">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Descripción</th>
+              <th>Precio</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state &&
+              this.state.articulos.map(art => {
+                return (
+                  <tr key={art.codigo}>
+                    <td>{art.codigo}</td>
+                    <td>{art.descripcion}</td>
+                    <td>{art.precio}</td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
       </div>
     );
-  }
-
-  cambioEstudios(e) {
-    this.setState({
-      estudios: e.target.value
-    });
   }
 }
 
